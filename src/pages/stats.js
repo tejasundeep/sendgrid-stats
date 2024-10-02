@@ -8,7 +8,7 @@ export default function EmailEvents() {
     useEffect(() => {
         const fetchEmailEvents = async () => {
             try {
-                const response = await fetch('/api/email-events'); // Your API route
+                const response = await fetch('/api/email-events');
                 if (!response.ok) {
                     throw new Error('Error fetching email events');
                 }

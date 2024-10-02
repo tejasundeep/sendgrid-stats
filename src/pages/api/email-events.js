@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         // Construct the query payload with valid parameters only
         let queryParams = {
             limit: 10,
-            query: "event=delivered", // Example query for delivered emails
+            query: "event=delivered",
             start_time: startTime,
         };
 

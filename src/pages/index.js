@@ -6,7 +6,7 @@ function EmailReports() {
     useEffect(() => {
         const fetchReports = async () => {
             try {
-                const res = await fetch('/api/invalid');
+                const res = await fetch('/api/unsubscribe');
                 const data = await res.json();
                 console.log(data)
 
@@ -42,7 +42,7 @@ function EmailReports() {
                         </li>
                     ))
                 ) : (
-                    <li>No bounce reports available</li>
+                    <li>No data found</li>
                 )}
             </ul>
         </div>
