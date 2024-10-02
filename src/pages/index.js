@@ -1,31 +1,52 @@
 import { useEffect, useState } from 'react';
 
-function SpamReports() {
-    const [spamReports, setSpamReports] = useState([]);
+function EmailReports() {
+    const [reports, setReports] = useState([]);
 
     useEffect(() => {
-        const fetchSpamReports = async () => {
-            const res = await fetch('/api/bounce');
-            const data = await res.json();
-            setSpamReports(data);
+        const fetchReports = async () => {
+            try {
+                const res = await fetch('/api/invalid');
+                const data = await res.json();
+                console.log(data)
+
+                if (Array.isArray(data)) {
+                    setReports(data);
+                } else {
+                    console.error('Bounce reports data is not an array:', data);
+                    setReports([]);
+                }
+            } catch (error) {
+                console.error('Error fetching bounce reports:', error);
+                setReports([]);
+            }
         };
 
-        fetchSpamReports();
+        fetchReports();
     }, []);
 
     return (
         <div>
             <h1>Reports</h1>
+            <br />
             <ul>
-                {spamReports.map((report) => (
-                    <li key={report.email}>
-                        <strong>Email:</strong> {report.email}<br/><strong>Reported at: </strong>
-                        {new Date(report.created).toLocaleString()}<br /><br />
-                    </li>
-                ))}
+                {reports.length > 0 ? (
+                    reports.map((report, index) => (
+                        <li key={index}>
+                            <strong>Email:</strong> {report.email}<br/>
+                            <strong>Reported at:</strong> 
+                            {report.created 
+                                ? new Date(report.created * 1000).toLocaleString() 
+                                : 'Unknown'}
+                            <br/><br/>
+                        </li>
+                    ))
+                ) : (
+                    <li>No bounce reports available</li>
+                )}
             </ul>
         </div>
     );
 }
 
-export default SpamReports;
+export default EmailReports;
