@@ -1,0 +1,2 @@
+# sendgrid-stats
+Email statistics
